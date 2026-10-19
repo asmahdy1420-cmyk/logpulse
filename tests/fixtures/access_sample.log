@@ -1,0 +1,9 @@
+203.0.113.7 - - [19/Oct/2026:10:00:01 +0000] "GET /api/products?page=2 HTTP/1.1" 200 5120 "-" "Mozilla/5.0" 0.042
+203.0.113.7 - - [19/Oct/2026:10:00:02 +0000] "GET /api/products HTTP/1.1" 200 4096 "-" "Mozilla/5.0" 0.038
+198.51.100.23 - - [19/Oct/2026:10:00:03 +0000] "POST /api/checkout HTTP/1.1" 502 157 "https://shop.example/cart" "Mozilla/5.0" 1.204
+198.51.100.23 - alice [19/Oct/2026:12:00:04 +0200] "GET /api/cart HTTP/2.0" 200 812 "-" "curl/8.7.1" 0.011
+192.0.2.10 - - [19/Oct/2026:10:00:30 +0000] "GET /health HTTP/1.1" 200 2 "-" "kube-probe/1.30"
+this line is not a log line
+192.0.2.10 - - [19/Oct/2026:10:01:05 +0000] "GET /missing HTTP/1.1" 404 - "-" "Mozilla/5.0" 0.004
+{"timestamp": "2026-10-19T10:01:10.250Z", "ip": "192.0.2.44", "method": "GET", "path": "/api/search?q=shoes", "status": 200, "latency_ms": 87.5, "bytes": 2048}
+{"time": 1792404075, "remote_addr": "192.0.2.44", "status_code": 503, "uri": "/api/orders", "request_time": 0.75}
