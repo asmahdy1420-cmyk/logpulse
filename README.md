@@ -1,5 +1,7 @@
 # logpulse
 
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white) ![Streaming](https://img.shields.io/badge/streaming-log_analytics-0EA5E9) ![Observability](https://img.shields.io/badge/observability-anomaly_alerts-F97316) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 Streaming log analytics in a single Python process. `logpulse` reads nginx or JSON access
 logs from a file or stdin (optionally following the file like `tail -F`), aggregates them into
 tumbling or sliding event-time windows, and reports request rate, status-code mix, latency
