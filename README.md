@@ -1,6 +1,6 @@
 # logpulse
 
-![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white) ![Streaming](https://img.shields.io/badge/streaming-log_analytics-0EA5E9) ![Observability](https://img.shields.io/badge/observability-anomaly_alerts-F97316) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 Streaming log analytics in a single Python process. `logpulse` reads nginx or JSON access
 logs from a file or stdin (optionally following the file like `tail -F`), aggregates them into
@@ -9,21 +9,15 @@ percentiles, top paths and top client IPs. An EWMA + z-score detector watches er
 latency and raises alerts when they jump. Results go to the console, JSON lines, PostgreSQL,
 or a small HTTP API.
 
-```text
-$ python scripts/generate_logs.py --duration 480 --rate 30 --incident-at 300 | logpulse run --window 60s --top 3
+## Screenshots
 
-== 2026-10-19T08:53:00Z -> 2026-10-19T08:54:00Z (60s) ==
-  requests 1821     rps 30.35    5xx  0.55%   4xx  4.01%   sent 7.0MB
-  latency  p50     36.0ms  p95     92.4ms  p99    125.8ms
-  status   2xx 1703  3xx 35  4xx 73  5xx 10
-  top paths                                  count   top ips              count
-  /                                            682   10.0.0.165             201
-  /api/products                                261   10.0.1.127             109
-  /api/cart                                    144   10.0.0.46               80
-  ...
-  !! ALERT [critical] error_rate=0.2614 vs baseline 0.005515 (z=25.6) in window ending 2026-10-19T08:59:00Z
-  !! ALERT [critical] p95_latency_ms=604.1 vs baseline 92.83 (z=102.3) in window ending 2026-10-19T08:59:00Z
-```
+A synthetic access log (from `scripts/generate_logs.py`, 30 requests per second with an incident injected at 200 s) read through 60 second tumbling windows. The window that contains the incident raises two alerts, one for error rate and one for p95 latency. `--warmup 3` lets the detector start scoring after three windows, because this log is only five minutes long. The data is generated, not production traffic.
+
+![Windowed metrics and two alerts on a generated log](docs/screenshots/windowed-metrics-and-alerts.png)
+
+The same pipeline with `--serve`: the alerts and the pipeline counters over HTTP.
+
+![Alerts and health endpoints](docs/screenshots/http-alerts-api.png)
 
 ## Why
 
